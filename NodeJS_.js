@@ -4,6 +4,15 @@ app.use(express.json());
 
 let books = [];
 
+//Resetting the books for test
+app.resetBooks = () => {
+	books = [];
+  };
+  
+app.setBooks = (newBooks) => {
+	books = newBooks;
+  };
+
 // Get all books
 app.get('/books', (req, res) => {
   res.status(200).json(books);

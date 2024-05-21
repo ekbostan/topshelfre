@@ -10,10 +10,83 @@ afterAll((done) => {
   server.close(done);
 });
 
-describe('GET /books', () => {
-  test('should retrieve all books', () => {
+describe("GET /books", () => {
+  beforeEach(() => {
+    app.resetBooks(); 
+  });
+
+  // Empty book List
+  test("should retrieve an empty array when there are no books", () => {
     return request(app)
-      .get('/books')
-      .expect(200);
+      .get("/books")
+      .expect(200)
+      .then((response) => {
+        expect(response.body).toEqual([]);
+      });
+  });
+
+  // Testing retrieval of multiple books
+  test("should retrieve all books when there are multiple books", () => {
+    app.setBooks([
+      {
+        id: 1,
+        title: "Annabelle 1",
+        author: "JK Rowling",
+        published_date: "2001-07-31",
+        price: 200,
+      },
+      {
+        id: 2,
+        title: "Annabelle 2",
+        author: "JK Rowling",
+        published_date: "2002-07-31",
+        price: 100,
+      }
+    ]);
+
+    return request(app)
+      .get("/books")
+      .expect(200)
+      .then((response) => {
+        expect(response.body).toEqual([
+          {
+            id: 1,
+            title: "Annabelle 1",
+            author: "JK Rowling",
+            published_date: "2001-07-31",
+            price: 200,
+          },
+          {
+            id: 2,
+            title: "Annabelle 2",
+            author: "JK Rowling",
+            published_date: "2002-07-31",
+            price: 100,
+          },
+        ]);
+      });
+  });
+
+  // Test to check if the response includes correct object structure
+  test("should have the correct response structure", () => {
+    app.setBooks([{
+      id: 10,
+      title: "Greatest Tale",
+      author: "Mervan Asmar",
+      published_date: "1000-04-06",
+      price: 50,
+    }]);
+
+    return request(app)
+      .get("/books")
+      .expect(200)
+      .then((response) => {
+        expect(response.body).toBeInstanceOf(Array);
+        expect(response.body[0]).toHaveProperty("id");
+        expect(response.body[0]).toHaveProperty("title");
+        expect(response.body[0]).toHaveProperty("author");
+        expect(response.body[0]).toHaveProperty("published_date");
+        expect(response.body[0]).toHaveProperty("price");
+      });
   });
 });
