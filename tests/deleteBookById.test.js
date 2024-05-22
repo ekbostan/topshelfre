@@ -58,4 +58,12 @@ describe("DELETE /books/:id", () => {
           });
       });
   });
+  test("should return 400 for id/slug not int", () => {
+    return request(app)
+    .delete("/books/qwwewqe")
+    .expect(400)
+    .then((response)=>{
+      expect(response.body).toEqual({message: 'Invalid book ID'})
+    })
+  })
 });

@@ -20,7 +20,12 @@ app.get('/books', (req, res) => {
 
 // Get a book by slug:id
 app.get('/books/:id', (req, res) => {
-  const book = books.find(b => b.id === parseInt(req.params.id));
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) {
+    return res.status(400).json({ message:'Invalid book ID' });
+  }
+
+  const book = books.find(b => b.id === id);
   if (book) {
     res.status(200).json(book);
   } else {
@@ -67,7 +72,13 @@ app.put('/books/:id', (req, res) => {
 
 // Delete a book by slug:id
 app.delete('/books/:id', (req, res) => {
-  const index = books.findIndex(b => b.id === parseInt(req.params.id));
+  
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) {
+    return res.status(400).json({ message: 'Invalid book ID' });
+  }
+
+  const index = books.findIndex(b => b.id === parseInt(id));
   if (index !== -1) {
     books.splice(index, 1);
     res.status(200).json({ message: 'Book deleted successfully' });
