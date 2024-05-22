@@ -15,7 +15,6 @@ describe("GET /books", () => {
     app.resetBooks(); 
   });
 
-  // Empty book List
   test("should retrieve an empty array when there are no books", () => {
     return request(app)
       .get("/books")
@@ -25,7 +24,7 @@ describe("GET /books", () => {
       });
   });
 
-  // Testing retrieval of multiple books
+ 
   test("should retrieve all books when there are multiple books", () => {
     app.setBooks([
       {
@@ -67,7 +66,7 @@ describe("GET /books", () => {
       });
   });
 
-  // Test to check if the response includes correct object structure
+
   test("should have the correct response structure", () => {
     app.setBooks([{
       id: 10,

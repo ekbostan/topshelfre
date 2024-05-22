@@ -16,7 +16,7 @@ describe('POST /books', () => {
       app.resetBooks(); 
     });
 
-
+  
   test("should create a new book with all fields", () => {
     return request(app)
       .post("/books")
@@ -52,7 +52,7 @@ describe('POST /books', () => {
       });
   });
 
-  // Creating a book with invalid data types
+ 
   test("should not create a book with invalid data types", () => {
     return request(app)
       .post("/books")
@@ -71,7 +71,7 @@ describe('POST /books', () => {
       });
   });
 
-  // Creating a book with existing Id
+ 
   test("should not create a book with duplicate ID", () => {
     // First book
     return request(app)
