@@ -57,9 +57,25 @@ app.post('/books', (req, res) => {
 
 // Update a book by slug:id
 app.put('/books/:id', (req, res) => {
-  const book = books.find(b => b.id === parseInt(req.params.id));
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) {
+    return res.status(400).json({ message: 'Invalid book ID' });
+  }
+
+  const book = books.find(b => b.id === id);
   if (book) {
     const { title, author, published_date, price } = req.body;
+
+    // Checking for missing fields in req
+    if (!title || !author || !published_date || !price) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    // Checking data types in req
+    if (typeof title !== 'string' || typeof author !== 'string' || isNaN(Date.parse(published_date)) || typeof price !== 'number') {
+      return res.status(400).json({ message: 'Invalid data types' });
+    }
+
     book.title = title;
     book.author = author;
     book.published_date = published_date;
@@ -69,6 +85,7 @@ app.put('/books/:id', (req, res) => {
     res.status(404).json({ message: 'Book not found' });
   }
 });
+
 
 // Delete a book by slug:id
 app.delete('/books/:id', (req, res) => {
