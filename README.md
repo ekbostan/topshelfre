@@ -1,31 +1,35 @@
 ## Setup Instructions
 
 ### Prerequisites
+
 - Node.js (v14 or higher)
 - npm (v6 or higher)
 
 ### Installation
 
 1. Clone the repository
-    ```sh
-    git clone <your-fork-repo-url>
-    cd topshelfre
-    ```
+
+   ```sh
+   git clone <your-fork-repo-url>
+   cd topshelfre
+   ```
 
 2. Install dependencies
-    ```sh
-    npm install
-    ```
+
+   ```sh
+   npm install
+   ```
 
 3. Run the application
-    ```sh
-    npm start
-    ```
+
+   ```sh
+   npm start
+   ```
 
 4. Run tests
-    ```sh
-    npm test
-    ```
+   ```sh
+   npm test
+   ```
 
 ### Running on VSCode
 
@@ -34,8 +38,14 @@
 
 ### Containerization with Docker
 
-1. **Run the Docker container**:
+1. **Pull the Docker image from Docker Hub**:
 
-    ```sh
-    docker run -p 3000:3000 -d topshelfre-app
-    ```
+   ```sh
+   docker pull ekbostan111/topshelfre-app:latest
+   ```
+
+2. **Run the Docker image**:
+
+```sh
+   docker run -p 3000:3000 -d ekbostan111/topshelfre-app:latest
+```
