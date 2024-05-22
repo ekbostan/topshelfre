@@ -10,7 +10,7 @@
 1. Clone the repository
 
    ```sh
-   git clone <your-fork-repo-url>
+   git clone
    cd topshelfre
    ```
 
